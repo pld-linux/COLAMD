@@ -1,0 +1,64 @@
+--- COLAMD/Makefile~	2007-03-27 02:02:53.388937452 +0300
++++ COLAMD/Makefile	2007-03-27 02:02:58.359049009 +0300
+@@ -1,25 +1,26 @@
+ 
+-default: libcolamd.a colamd_example colamd_l_example
++default: libcolamd.la colamd_example colamd_l_example
++libdir	:= /usr/lib
+ 
+ include /usr/share/misc/UFconfig.mk
+ 
+-colamd_example: colamd_example.c libcolamd.a
+-	$(CC) $(CFLAGS) $(I) -o colamd_example colamd_example.c libcolamd.a -lm
++colamd_example: colamd_example.c libcolamd.la
++	libtool --tag=CC --mode=link $(CC) $(CFLAGS) $(I) -o colamd_example colamd_example.c libcolamd.la -lm
+ 	- ./colamd_example > my_colamd_example.out
+ 	- diff colamd_example.out my_colamd_example.out
+ 
+-colamd_l_example: colamd_l_example.c libcolamd.a
+-	$(CC) $(CFLAGS) $(I) -o colamd_l_example colamd_l_example.c libcolamd.a -lm
++colamd_l_example: colamd_l_example.c libcolamd.la
++	libtool --tag=CC --mode=link $(CC) $(CFLAGS) $(I) -o colamd_l_example colamd_l_example.c libcolamd.la -lm
+ 	- ./colamd_l_example > my_colamd_l_example.out
+ 	- diff colamd_example.out my_colamd_example.out
+ 
+ purge: distclean
+ 
+ distclean: clean2
+-	- $(RM) libcolamd.a
++	- $(RM) libcolamd.la
+ 
+ clean2: clean
+-	- $(RM) *.o *.dll colamd_example colamd_l_example
++	- $(RM) *.o *.la *.a *.so *.dll colamd_example colamd_l_example
+ 	- $(RM) colamd2mex.mex* symamd2mex.mex*
+ 	- $(RM) colamdtestmex.mex* symamdtestmex.mex*
+ 	- $(RM) my_colamd_example.out my_colamd_l_example.out
+@@ -35,15 +36,20 @@
+ 	$(MEX) $(I) symamdtestmex.c libcolamd.a
+ 
+ # creates libcolamd.a, a C-callable COLAMD library
+-libcolamd.a:  colamd.c colamd_global.c colamd.h
+-	$(CC) $(CFLAGS) $(I) -c colamd_global.c
+-	$(CC) $(CFLAGS) $(I) -c colamd.c
+-	$(CC) $(CFLAGS) $(I) -c colamd.c -DDLONG -o colamd_l.o
+-	$(AR) libcolamd.a colamd.o colamd_l.o colamd_global.o
++libcolamd.a: libcolamd.la
++libcolamd.la:  colamd.c colamd_global.c colamd.h
++	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c colamd_global.c
++	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c colamd.c
++	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c colamd.c -DDLONG -o colamd_l.o
++	libtool --tag=CC --mode=link $(CC) -o libcolamd.la -rpath $(libdir) colamd.lo colamd_l.lo colamd_global.lo 
++
++install: libcolamd.la
++	install -d $(DESTDIR)$(libdir)
++	libtool --mode=install cp libcolamd.la $(DESTDIR)$(libdir)/libcolamd.la
+ 
+-ccode: libcolamd.a
++ccode: libcolamd.la
+ 
+-library: libcolamd.a
++library: libcolamd.la
+ 
+ clean:
+ 	- $(RM) $(CLEAN)
