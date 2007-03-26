@@ -1,13 +1,14 @@
 Summary:	COLAMD: column approximate minimum degree
 Name:		colamd
 Version:	2.6.0
-Release:	0.1
+Release:	0.2
 License:	LGPL
 Group:		Libraries
 Source0:	http://www.cise.ufl.edu/research/sparse/colamd/COLAMD-%{version}.tar.gz
 # Source0-md5:	49e185756896c1e918a535ec409c48b9
 URL:		http://www.cise.ufl.edu/research/sparse/colamd/
 Patch0:		%{name}-ufconfig.patch
+Patch1:		%{name}-shared.patch
 BuildRequires:	UFconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -43,6 +44,7 @@ Static colamd library.
 %prep
 %setup -q -n COLAMD
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__make} \
@@ -51,19 +53,26 @@ Static colamd library.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
-cp -a colamd.h $RPM_BUILD_ROOT%{_includedir}
-cp -a libcolamd.a $RPM_BUILD_ROOT%{_libdir}/libcolamd.a
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+install -D colamd.h $RPM_BUILD_ROOT%{_includedir}/colamd.h
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc README.txt
+%attr(755,root,root) %{_libdir}/libcolamd.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
+%{_libdir}/libcolamd.la
+%{_libdir}/libcolamd.so
 %{_includedir}/colamd.h
 
 %files static
