@@ -48,7 +48,7 @@
 +	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c colamd_global.c
 +	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c colamd.c
 +	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c colamd.c -DDLONG -o colamd_l.o
-+	libtool --tag=CC --mode=link $(CC) -o libcolamd.la -rpath $(libdir) colamd.lo colamd_l.lo colamd_global.lo 
++	libtool --tag=CC --mode=link $(CC) -o libcolamd.la -rpath $(libdir) colamd.lo colamd_l.lo colamd_global.lo -lm
 +
 +install: libcolamd.la
 +	install -d $(DESTDIR)$(libdir)
