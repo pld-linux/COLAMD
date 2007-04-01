@@ -11,6 +11,7 @@ Patch0:		%{name}-ufconfig.patch
 Patch1:		%{name}-shared.patch
 URL:		http://www.cise.ufl.edu/research/sparse/colamd/
 BuildRequires:	UFconfig
+BuildRequires:	libtool >= 2:1.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -70,12 +71,15 @@ Statyczna biblioteka colamd.
 %build
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags}"
+	CFLAGS="%{rpmcflags}" \
+	libdir=%{_libdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	libdir=%{_libdir}
 
 install -D colamd.h $RPM_BUILD_ROOT%{_includedir}/colamd.h
 
