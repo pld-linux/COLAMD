@@ -1,12 +1,12 @@
 Summary:	COLAMD: column approximate minimum degree
 Summary(pl.UTF-8):	COLAMD - przybliżony algorytm minimalnego stopnia dla kolumn
 Name:		colamd
-Version:	2.6.0
-Release:	0.2
+Version:	2.7.1
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://www.cise.ufl.edu/research/sparse/colamd/COLAMD-%{version}.tar.gz
-# Source0-md5:	49e185756896c1e918a535ec409c48b9
+# Source0-md5:	de62fb5235499d1110b86751b0d4ca46
 Patch0:		%{name}-ufconfig.patch
 Patch1:		%{name}-shared.patch
 URL:		http://www.cise.ufl.edu/research/sparse/colamd/
@@ -77,11 +77,11 @@ Statyczna biblioteka colamd.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -C Lib install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	libdir=%{_libdir}
 
-install -D colamd.h $RPM_BUILD_ROOT%{_includedir}/colamd.h
+install -D Include/colamd.h $RPM_BUILD_ROOT%{_includedir}/colamd.h
 
 %clean
 rm -rf $RPM_BUILD_ROOT
