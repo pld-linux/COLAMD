@@ -42,3 +42,54 @@
  
  # Compile all C code, including the C-callable routine and the mexFunctions.
  # Do not the MATLAB interface.
+diff -ur COLAMD/Demo/Makefile COLAMD.UF/Demo/Makefile
+--- COLAMD/Demo/Makefile	2007-05-05 15:42:44.000000000 +0200
++++ COLAMD.UF/Demo/Makefile	2007-12-02 15:41:19.000000000 +0100
+@@ -4,9 +4,9 @@
+ 
+ default: colamd_example colamd_l_example
+ 
+-include ../../UFconfig/UFconfig.mk
++include /usr/share/misc/UFconfig.mk
+ 
+-I = -I../Include -I../../UFconfig
++I = -I../Include
+ 
+ C = $(CC) $(CFLAGS) $(I)
+ 
+diff -ur COLAMD/Lib/Makefile COLAMD.UF/Lib/Makefile
+--- COLAMD/Lib/Makefile	2007-05-05 15:41:47.000000000 +0200
++++ COLAMD.UF/Lib/Makefile	2007-12-02 15:42:02.000000000 +0100
+@@ -4,11 +4,11 @@
+ 
+ default: libcolamd.a
+ 
+-include ../../UFconfig/UFconfig.mk
++include /usr/share/misc/UFconfig.mk
+ 
+-I = -I../Include -I../../UFconfig
++I = -I../Include
+ 
+-INC = ../Include/colamd.h ../../UFconfig/UFconfig.h
++INC = ../Include/colamd.h
+ 
+ SRC = ../Source/colamd.c ../Source/colamd_global.c
+ 
+diff -ur COLAMD/MATLAB/Makefile COLAMD.UF/MATLAB/Makefile
+--- COLAMD/MATLAB/Makefile	2007-05-06 04:41:53.000000000 +0200
++++ COLAMD.UF/MATLAB/Makefile	2007-12-02 15:42:15.000000000 +0100
+@@ -2,11 +2,11 @@
+ 
+ default: colamd2 symamd2
+ 
+-include ../../UFconfig/UFconfig.mk
++include /usr/share/misc/UFconfig.mk
+ 
+-I = -I../../UFconfig -I../Include
++I = -I../Include
+ 
+-INC = ../Include/colamd.h ../../UFconfig/UFconfig.h
++INC = ../Include/colamd.h
+ 
+ SRC = ../Source/colamd.c ../Source/colamd_global.c
+ 
