@@ -6,13 +6,13 @@ diff -ur COLAMD/Demo/Makefile COLAMD-shared/Demo/Makefile
  
  colamd_example: colamd_example.c library
 -	$(C) -o colamd_example colamd_example.c ../Lib/libcolamd.a -lm
-+	libtool --tag=CC --mode=link $(CC) $(CFLAGS) $(I) -o colamd_example colamd_example.c ../Lib/libcolamd.la -lm
++	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) $(CFLAGS) $(I) -o colamd_example colamd_example.c ../Lib/libcolamd.la -lm
  	- ./colamd_example > my_colamd_example.out
  	- diff colamd_example.out my_colamd_example.out
  
  colamd_l_example: colamd_l_example.c library
 -	$(C) -o colamd_l_example colamd_l_example.c ../Lib/libcolamd.a -lm
-+	libtool --tag=CC --mode=link $(CC) $(CFLAGS) $(I) -o colamd_l_example colamd_l_example.c ../Lib/libcolamd.la -lm
++	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) $(CFLAGS) $(I) -o colamd_l_example colamd_l_example.c ../Lib/libcolamd.la -lm
  	- ./colamd_l_example > my_colamd_l_example.out
  	- diff colamd_example.out my_colamd_example.out
  
@@ -43,7 +43,7 @@ diff -ur COLAMD/Lib/Makefile COLAMD-shared/Lib/Makefile
 +	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd_global.c
 +	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd.c
 +	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd.c -DDLONG -o colamd_l.o
-+	libtool --tag=CC --mode=link $(CC) -o libcolamd.la -rpath $(libdir) colamd.o colamd_l.o colamd_global.o -lm
++	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) -o libcolamd.la -rpath $(libdir) colamd.o colamd_l.o colamd_global.o -lm
 +
 +install: libcolamd.la
 +	install -d $(DESTDIR)$(libdir)
