@@ -40,31 +40,31 @@ lepsze uporządkowania niż ich odpowiedniki z MATLAB-a: colmmd i
 symmmd.
 
 %package devel
-Summary:	Header files for colamd library
-Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki colamd
+Summary:	Header files for COLAMD library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki COLAMD
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	UFconfig
 Obsoletes:	colamd-devel
 
 %description devel
-Header files for colamd library.
+Header files for COLAMD library.
 
 %description devel -l pl.UTF-8
-Pliki nagłówkowe biblioteki colamd.
+Pliki nagłówkowe biblioteki COLAMD.
 
 %package static
-Summary:	Static colamd library
-Summary(pl.UTF-8):	Statyczna biblioteka colamd
+Summary:	Static COLAMD library
+Summary(pl.UTF-8):	Statyczna biblioteka COLAMD
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Obsoletes:	colamd-static
 
 %description static
-Static colamd library.
+Static COLAMD library.
 
 %description static -l pl.UTF-8
-Statyczna biblioteka colamd.
+Statyczna biblioteka COLAMD.
 
 %prep
 %setup -q -n %{name}
