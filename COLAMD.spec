@@ -5,13 +5,14 @@ Version:	2.7.1
 Release:	2
 License:	LGPL
 Group:		Libraries
-Source0:	http://www.cise.ufl.edu/research/sparse/colamd/COLAMD-%{version}.tar.gz
+Source0:	http://www.cise.ufl.edu/research/sparse/colamd/%{name}-%{version}.tar.gz
 # Source0-md5:	de62fb5235499d1110b86751b0d4ca46
-Patch0:		%{name}-ufconfig.patch
-Patch1:		%{name}-shared.patch
+Patch0:		colamd-ufconfig.patch
+Patch1:		colamd-shared.patch
 URL:		http://www.cise.ufl.edu/research/sparse/colamd/
 BuildRequires:	UFconfig
 BuildRequires:	libtool >= 2:1.5
+Obsoletes:	colamd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,6 +45,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki colamd
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	UFconfig
+Obsoletes:	colamd-devel
 
 %description devel
 Header files for colamd library.
@@ -56,6 +58,7 @@ Summary:	Static colamd library
 Summary(pl.UTF-8):	Statyczna biblioteka colamd
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+Obsoletes:	colamd-static
 
 %description static
 Static colamd library.
@@ -64,7 +67,7 @@ Static colamd library.
 Statyczna biblioteka colamd.
 
 %prep
-%setup -q -n COLAMD
+%setup -q -n %{name}
 %patch0 -p1
 %patch1 -p1
 
