@@ -75,6 +75,7 @@ Statyczna biblioteka colamd.
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -fPIC" \
+	LDFLAGS="%{rpmldflags}" \
 	libdir=%{_libdir}
 
 %install
