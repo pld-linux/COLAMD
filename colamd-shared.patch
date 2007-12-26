@@ -42,8 +42,8 @@ diff -ur COLAMD/Lib/Makefile COLAMD-shared/Lib/Makefile
 +libcolamd.la:  $(SRC) $(INC)
 +	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd_global.c
 +	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd.c
-+	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd.c -DDLONG -o colamd_l.o
-+	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) -o libcolamd.la -rpath $(libdir) colamd.o colamd_l.o colamd_global.o -lm
++	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd.c -DDLONG -o colamd_l.lo
++	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) -o libcolamd.la -rpath $(libdir) colamd.lo colamd_l.lo colamd_global.lo -lm
 +
 +install: libcolamd.la
 +	install -d $(DESTDIR)$(libdir)
