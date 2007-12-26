@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	COLAMD - przybliżony algorytm minimalnego stopnia dla kolumn
 Name:		COLAMD
 Version:	2.7.1
 Release:	3
-License:	LGPL
+License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.cise.ufl.edu/research/sparse/colamd/%{name}-%{version}.tar.gz
 # Source0-md5:	de62fb5235499d1110b86751b0d4ca46
@@ -96,8 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README.txt
+%doc README.txt Doc/ChangeLog
 %attr(755,root,root) %{_libdir}/libcolamd.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libcolamd.so.0
 
 %files devel
 %defattr(644,root,root,755)
