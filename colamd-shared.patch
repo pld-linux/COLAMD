@@ -6,19 +6,18 @@ diff -ur COLAMD/Demo/Makefile COLAMD-shared/Demo/Makefile
  
  colamd_example: colamd_example.c library
 -	$(C) -o colamd_example colamd_example.c ../Lib/libcolamd.a -lm
-+	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) $(CFLAGS) $(I) -o colamd_example colamd_example.c ../Lib/libcolamd.la -lm
++	libtool --tag=CC --mode=link $(C) $(LDFLAGS) -o colamd_example colamd_example.c ../Lib/libcolamd.la -lm
  	- ./colamd_example > my_colamd_example.out
  	- diff colamd_example.out my_colamd_example.out
  
  colamd_l_example: colamd_l_example.c library
 -	$(C) -o colamd_l_example colamd_l_example.c ../Lib/libcolamd.a -lm
-+	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) $(CFLAGS) $(I) -o colamd_l_example colamd_l_example.c ../Lib/libcolamd.la -lm
++	libtool --tag=CC --mode=link $(C) $(LDFLAGS) -o colamd_l_example colamd_l_example.c ../Lib/libcolamd.la -lm
  	- ./colamd_l_example > my_colamd_l_example.out
  	- diff colamd_example.out my_colamd_example.out
  
-diff -ur COLAMD/Lib/Makefile COLAMD-shared/Lib/Makefile
---- COLAMD/Lib/Makefile	2007-12-02 15:48:48.000000000 +0100
-+++ COLAMD-shared/Lib/Makefile	2007-12-02 15:47:12.000000000 +0100
+--- COLAMD/Lib/Makefile.orig	2012-01-01 14:26:08.932964237 +0100
++++ COLAMD/Lib/Makefile	2012-01-01 14:27:54.886301117 +0100
 @@ -2,7 +2,8 @@
  # COLAMD Makefile
  #-------------------------------------------------------------------------------
@@ -29,35 +28,36 @@ diff -ur COLAMD/Lib/Makefile COLAMD-shared/Lib/Makefile
  
  include /usr/share/misc/UFconfig.mk
  
-@@ -13,15 +14,20 @@
+@@ -13,16 +14,19 @@
  SRC = ../Source/colamd.c ../Source/colamd_global.c
  
  # creates libcolamd.a, a C-callable COLAMD library
 -libcolamd.a:  $(SRC) $(INC)
--	$(CC) $(CFLAGS) $(I) -c ../Source/colamd_global.c
--	$(CC) $(CFLAGS) $(I) -c ../Source/colamd.c
--	$(CC) $(CFLAGS) $(I) -c ../Source/colamd.c -DDLONG -o colamd_l.o
--	$(AR) libcolamd.a colamd.o colamd_l.o colamd_global.o
-+libcolamd.a: libcolamd.la
+-	$(CC) $(CF) $(I) -c ../Source/colamd_global.c
+-	$(CC) $(CF) $(I) -c ../Source/colamd.c
+-	$(CC) $(CF) $(I) -c ../Source/colamd.c -DDLONG -o colamd_l.o
+-	$(ARCHIVE)  libcolamd.a colamd.o colamd_l.o colamd_global.o
+-	- $(RANLIB) libcolamd.a
 +libcolamd.la:  $(SRC) $(INC)
-+	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd_global.c
-+	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd.c
-+	libtool --tag=CC --mode=compile $(CC) $(CFLAGS) $(I) -c ../Source/colamd.c -DDLONG -o colamd_l.lo
++	libtool --tag=CC --mode=compile $(CC) $(CF) $(I) -c ../Source/colamd_global.c
++	libtool --tag=CC --mode=compile $(CC) $(CF) $(I) -c ../Source/colamd.c
++	libtool --tag=CC --mode=compile $(CC) $(CF) $(I) -c ../Source/colamd.c -DDLONG -o colamd_l.o
 +	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) -o libcolamd.la -rpath $(libdir) colamd.lo colamd_l.lo colamd_global.lo -lm
 +
 +install: libcolamd.la
 +	install -d $(DESTDIR)$(libdir)
 +	libtool --mode=install cp libcolamd.la $(DESTDIR)$(libdir)/libcolamd.la
- 
--ccode: libcolamd.a
++ 
 +ccode: libcolamd.la
  
+-ccode: libcolamd.a
+-
 -library: libcolamd.a
 +library: libcolamd.la
  
  clean:
  	- $(RM) $(CLEAN)
-@@ -29,4 +35,4 @@
+@@ -30,4 +34,4 @@
  purge: distclean
  
  distclean: clean

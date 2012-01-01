@@ -1,16 +1,16 @@
 Summary:	COLAMD: column approximate minimum degree
 Summary(pl.UTF-8):	COLAMD - przybliżony algorytm minimalnego stopnia dla kolumn
 Name:		COLAMD
-Version:	2.7.3
+Version:	2.7.4
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.cise.ufl.edu/research/sparse/colamd/%{name}-%{version}.tar.gz
-# Source0-md5:	7f41dd0e49d6db367f74e8c7a5e60918
+# Source0-md5:	186d692ab7211e79f9b727d8192635f7
 Patch0:		colamd-ufconfig.patch
 Patch1:		colamd-shared.patch
 URL:		http://www.cise.ufl.edu/research/sparse/colamd/
-BuildRequires:	UFconfig
+BuildRequires:	UFconfig >= 3.7.0
 BuildRequires:	libtool >= 2:1.5
 Obsoletes:	colamd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -44,7 +44,7 @@ Summary:	Header files for COLAMD library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki COLAMD
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	UFconfig
+Requires:	UFconfig >= 3.7.0
 Obsoletes:	colamd-devel
 
 %description devel
